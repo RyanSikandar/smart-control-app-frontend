@@ -1,10 +1,22 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
+  plugins: [
+    require("daisyui")
   ],
-  theme: {
-    extend: {},
+  content: [
+    "./src/**/*.{js,jsx,ts,tsx}"
+  ],
+  daisyui: {
+    themes: [
+      'light' // Ensure light theme is selected
+    ],
   },
-  plugins: [],
-}
+  theme: {
+    extend: {
+      colors: {
+        // Override background color to white
+        white: '#ffffff',
+      },
+    },
+  },
+};

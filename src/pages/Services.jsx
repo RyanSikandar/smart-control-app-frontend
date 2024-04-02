@@ -8,7 +8,7 @@ import { CardActionArea } from '@mui/material';
 import { IoBagCheckSharp } from "react-icons/io5";
 import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
 import BarChartIcon from '@mui/icons-material/BarChart';
-import { pink,orange,blue} from '@mui/material/colors';
+import { pink, orange, blue } from '@mui/material/colors';
 import GradingIcon from '@mui/icons-material/Grading';
 const Services = () => {
     return (
@@ -25,6 +25,7 @@ const Services = () => {
                         <li>Register Complain</li>
                     </ul>
                 </div>
+
                 <div className='w-64 h-60 bg-white'><p><BarChartIcon sx={{ color: orange[500] }} fontSize='large' className='mt-6' /></p>
                     <p className='font-bold mt-2'>Track Complain</p>
                     <ul className='text-md text-left ml-8 mt-8'>
@@ -33,6 +34,7 @@ const Services = () => {
                         <li>Register Complain</li>
                     </ul>
                 </div>
+                
                 <div className='w-64 h-60 bg-white'><GradingIcon sx={{ color: blue[500] }} fontSize='large' className='mt-6' />
                     <p className='font-bold mt-2'>Detail Analytics</p>
                     <ul className='text-md text-left ml-8 mt-8'>
