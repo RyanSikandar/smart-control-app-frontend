@@ -1,23 +1,36 @@
 import React, { useState } from 'react';
 import Sidebar from '../components/Sidebar';
 import { BsThreeDots } from 'react-icons/bs';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Facilities = () => {
-    const [showEdit, setShowEdit] = useState(false);
+    const [showOptions, setShowOptions] = useState(false);
+    const navigate = useNavigate();
+    const toggleOptions = () => {
+        setShowOptions(!showOptions);
+    };
 
-    const toggleEdit = () => {
-        setShowEdit(!showEdit);
+    const handleOptionClick = (option) => {
+        // Handle click based on the option
+        if (option === 'edit') {
+            // Handle edit option
+            console.log('Edit clicked');
+        } else if (option === 'delete') {
+            // Handle delete option
+            console.log('Delete clicked');
+        } else if (option === 'view') {
+            navigate('/portal/facilities/view/1');
+            console.log('View clicked');
+        }
     };
 
     return (
         <div>
             <Sidebar>
-                <div>
-                    <div className='font-bold  p-4 justify-between'>
-                        <h1 className='ml-4'>Facilities</h1></div>
-                    <div className='overflow-x-auto'>
-                        <table className='table'>
-                            {/* head */}
+                <div className='font-bold ml-4 p-4'>
+                    <h1>Facilities</h1>
+                    <div className="overflow-x-auto">
+                        <table className="table">
                             <thead>
                                 <tr>
                                     <th></th>
@@ -31,7 +44,6 @@ const Facilities = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {/* row 1 */}
                                 <tr className='hover'>
                                     <th>1</th>
                                     <td>FLT-0013</td>
@@ -39,18 +51,16 @@ const Facilities = () => {
                                     <td>Risalpur Cantt</td>
                                     <td>Type B</td>
                                     <td>31304-7532555-5, Capt Umar Saddiq</td>
-                                    <td>Allotted</td>
+                                    <td>Alotted</td>
                                     <td className='relative'>
-                                        <div onClick={toggleEdit}>
-                                            <BsThreeDots size={22} />
-                                            {showEdit && (
-                                                <div className=' border border-gray-300 bg-white z-10 hover:cursor-pointer'>
-                                                    <p className='p-1 hover:bg-slate-400'>Edit</p>
-                                                    <p className='p-1 hover:bg-slate-400'>Delete</p>
-                                                    <p className='p-1 hover:bg-slate-400'>View</p>
-                                                </div>
-                                            )}
-                                        </div>
+                                        <BsThreeDots size={22} onClick={toggleOptions} />
+                                        {showOptions && (
+                                            <div className=' bg-white border rounded-md shadow-lg'>
+                                                <p onClick={() => handleOptionClick('edit')} className='p-1 cursor-pointer'>Edit</p>
+                                                <p onClick={() => handleOptionClick('delete')} className='p-1 cursor-pointer'>Delete</p>
+                                                <p onClick={() => handleOptionClick('view')} className='p-1 cursor-pointer'>View</p>
+                                            </div>
+                                        )}
                                     </td>
                                 </tr>
                             </tbody>
@@ -59,7 +69,6 @@ const Facilities = () => {
                 </div>
             </Sidebar>
         </div>
-
     );
 };
 

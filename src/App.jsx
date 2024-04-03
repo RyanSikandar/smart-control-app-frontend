@@ -6,6 +6,8 @@ import Services from './pages/Services';
 import Login from './pages/Login';
 import Facilities from './pages/Facilities';
 import { ServiceManager } from './pages/ServiceManager';
+import AddFacility from './pages/AddFacility';
+import ViewFacility from './pages/ViewFacility';
 function App() {
   return (
     <div className="App">
@@ -17,6 +19,8 @@ function App() {
           <Route path="/services" element={<Services />} />
           <Route path="/portal" element={<ServiceManager/>}/>
           <Route path="/portal/facilities" element={<Facilities/>}/>
+          <Route path ="/portal/facilities/add" element={<AddFacility/>}/>
+          <Route path="/portal/facilities/view/:id" element={<ViewFacility />} />
         </Routes>
       </BrowserRouter>
     </div>
