@@ -16,9 +16,13 @@ import ViewAllotment from './pages/ViewAllotment';
 import Complains from './pages/Complains';
 import AssignComplains from './pages/AssignComplains';
 import ViewComplains from './pages/ViewComplains';
+import RespondComplains from './pages/RespondComplains';
+import { ToastContainer } from 'react-toastify';
+import ResolveComplains from './pages/ResolveComplains';
 function App() {
   return (
     <div className="App">
+    <ToastContainer />
       <BrowserRouter>
         <Routes>
         <Route path="/login" element={<Login />} />
@@ -37,6 +41,8 @@ function App() {
           <Route path="/portal/complains" element = {<Complains/>}/>
           <Route path="/portal/complains/assign/:id" element = {<AssignComplains/>}/>
           <Route path="/portal/complains/view/:id" element={<ViewComplains />} />
+          <Route path="/portal/complains/respond/:id" element={<RespondComplains />} />
+          <Route path="/portal/complains/resolve/:id" element={<ResolveComplains />} />
           </Routes>
       </BrowserRouter>
     </div>
