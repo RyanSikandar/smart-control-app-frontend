@@ -9,6 +9,7 @@ import { ServiceManager } from './pages/ServiceManager';
 import AddFacility from './pages/AddFacility';
 import ViewFacility from './pages/ViewFacility';
 import UserManagement from './pages/UserManagement';
+import AddUser from './pages/AddUser';
 function App() {
   return (
     <div className="App">
@@ -23,6 +24,7 @@ function App() {
           <Route path ="/portal/facilities/add" element={<AddFacility/>}/>
           <Route path="/portal/facilities/view/:id" element={<ViewFacility />} />
           <Route path="/portal/usermanagement" element = {<UserManagement/>}/>
+          <Route path="/portal/usermanagement/create" element = {<AddUser/>}/>
         </Routes>
       </BrowserRouter>
     </div>

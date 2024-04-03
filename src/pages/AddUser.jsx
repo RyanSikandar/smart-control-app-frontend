@@ -1,28 +1,22 @@
 import React, { useState } from 'react';
 import Sidebar from '../components/Sidebar';
-import { BsThreeDots } from 'react-icons/bs';
 import { Link } from 'react-router-dom'; // Import Link
 
 const AddFacility = () => {
-    const [showEdit, setShowEdit] = useState(false);
-
-    const toggleEdit = () => {
-        setShowEdit(!showEdit);
-    };
-
     const [inputs, setInputs] = useState({
-        "Facility Code": '',
-        "House/Flat": '',
-        "Street/Lane": '',
-        "Block/Colony/Area": '',
-        "FmmHQ": '',
-        "City": '',
-        "Type of Accommodation": '',
-        "Year of Construction": '',
-        "Date of Vacation": '', // Initialize with empty string
-        "Google Maps URL": '',
-        "Construction Drawing": '',
-        "House Image": '',
+        "First Name": '',
+        "Last Name": '',
+        "Email": '',
+        "Password": '',
+        "Confirm Password": '',
+        "Contact": '',
+        "CNIC": '',
+        "Gender": '', // Initialize with empty string
+        "Select Type": '', // Initialize with empty string
+        "PA/PSS/Army No": '',
+        "Unit No": '',
+        "Address": '',
+        "Role": '',
     });
 
     const handleChange = (e) => {
@@ -33,17 +27,9 @@ const AddFacility = () => {
         }));
     };
 
-    const handleFileChange = (e) => {
-        const { name, files } = e.target;
-        setInputs(prevState => ({
-            ...prevState,
-            [name]: files[0]
-        }));
-    };
-
     const handleSave = () => {
         // Send data to backend here
-        console.log("Saving facility data:", inputs);
+        console.log("Saving user data:", inputs);
         // You can send a POST request to your backend API endpoint here
     };
 
@@ -52,7 +38,7 @@ const AddFacility = () => {
             <Sidebar>
                 <div>
                     <div className='font-bold  p-4 justify-between flex'>
-                        <div><h1 className='ml-4'>Add New Facility</h1></div>
+                        <div><h1 className='ml-4'>Add New User</h1></div>
                         <div>
                             {/* Use Link for navigation */}
                             <Link to="/portal/facilities" className="btn btn-outline btn-success btn-sm text-center justify-center">{`< Back`}</Link>
@@ -63,18 +49,36 @@ const AddFacility = () => {
                             {Object.entries(inputs).map(([key, value]) => (
                                 <div key={key} className="flex flex-col">
                                     <label htmlFor={key} className={`block text-sm font-medium text-gray-700 ${value ? 'top-0' : 'top-1/2 transform -translate-y-1/2'}`}>{key}</label>
-                                    {key === 'Construction Drawing' || key === 'House Image' ? (
-                                        <input type='file' id={key} name={key} onChange={handleFileChange} className='mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md' />
-                                    ) : key === 'Date of Vacation' ? (
-                                        <input type='date' id={key} name={key} value={value} onChange={handleChange} className='mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md' />
+                                    {key === 'Gender' ? (
+                                        <select id={key} name={key} onChange={handleChange} value={value} className='mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'>
+                                            <option value="">Select Gender</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                        </select>
+                                    ) : key === 'Select Type' ? (
+                                        <select id={key} name={key} onChange={handleChange} value={value} className='mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'>
+                                            <option value="">Select Type</option>
+                                            <option value="Type A">Type A</option>
+                                            <option value="Type B">Type B</option>
+                                        </select>
                                     ) : (
                                         <input type='text' id={key} name={key} value={value} onChange={handleChange} className='mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md' />
                                     )}
                                 </div>
                             ))}
                         </div>
-                        {/* Save Facility button */}
-                        <button onClick={handleSave} className="btn btn-success mt-4">Save Facility</button>
+                        <div className='font-bold  p-4 justify-between flex'>
+                            <div><h1 className=''>Permissions</h1></div>
+                            <div>
+                                <select id= "role" name="role" onChange={handleChange} className='mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'>
+                                    <option value="">Select Type</option>
+                                    <option value="Type A"></option>
+                                    <option value="Type B">Type B</option>
+                                </select>
+                            </div>
+                        </div>
+                        {/* Save User button */}
+                        <button onClick={handleSave} className="btn btn-success mt-4">Save User</button>
                     </div>
                 </div>
             </Sidebar>
