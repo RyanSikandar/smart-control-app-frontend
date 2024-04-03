@@ -3,9 +3,11 @@ import Sidebar from '../components/Sidebar';
 import { BsThreeDots } from 'react-icons/bs';
 import { Link, useNavigate } from 'react-router-dom';
 
-const UserManagement = () => {
+const Allotments = () => {
     const [showOptions, setShowOptions] = useState(false);
+
     const navigate = useNavigate();
+
     const toggleOptions = () => {
         setShowOptions(!showOptions);
     };
@@ -19,11 +21,10 @@ const UserManagement = () => {
             // Handle delete option
             console.log('Delete clicked');
         } else if (option === 'view') {
-            navigate('/portal/facilities/view/1');
+            navigate('/portal/allotments/view/1');
             console.log('View clicked');
         }
     };
-
     const [searchExpanded, setSearchExpanded] = useState(false);
     const handleSearchClick = () => {
         setSearchExpanded(true);
@@ -34,28 +35,30 @@ const UserManagement = () => {
         setSearchExpanded(false);
     };
     // Sample facilities data
-    const userData = [
-        { id: 1, name: 'Electrician', contact: 'Spr Jabbar Hussain', email: 'jabbar@gmail.com', role: 'Role' },
-        // Add more user objects as needed
+    const AllotmentsData = [
+        { id: 1, "Allotment Code": 'ALT-0013', "Date of Occupation": '2-2-2024', "Facility Code": 'FLT-013', Address: '169/MOQ', City: 'Risalpur', "Previous Allottee": '31304-7532555-5, Capt Umar Saddiq', "Current Allottee": "31304-7532555-5, Capt Umar Saddiq", Status: "Current Allotment" },
+        // Add more facility objects as needed
     ];
-
-    // Filter facilities based on search query
-    const filteredUsers = userData.filter(user =>
-        user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        user.contact.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        user.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        user.role.toLowerCase().includes(searchQuery.toLowerCase())
+    // Filter allotments based on search query
+    const filteredAllotments = AllotmentsData.filter(allotment =>
+        allotment["Allotment Code"].toLowerCase().includes(searchQuery.toLowerCase()) ||
+        allotment["Date of Occupation"].toLowerCase().includes(searchQuery.toLowerCase()) ||
+        allotment["Facility Code"].toLowerCase().includes(searchQuery.toLowerCase()) ||
+        allotment.Address.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        allotment.City.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        allotment["Previous Allottee"].toLowerCase().includes(searchQuery.toLowerCase()) ||
+        allotment["Current Allottee"].toLowerCase().includes(searchQuery.toLowerCase()) ||
+        allotment.Status.toLowerCase().includes(searchQuery.toLowerCase())
     );
-
 
     return (
         <div>
             <Sidebar>
                 <div className='font-bold ml-4 p-4'>
-                    <div className='flex justify-between'>
-                        <div><h1>User Management</h1></div>
 
-                        <div> <Link to="/portal/usermanagement/create" className="btn btn-outline btn-success btn-sm text-center justify-center">{`+ Add New User`}</Link></div>
+                    <div className='flex justify-between'>
+                        <div><h1>Allotments</h1></div>
+                        <div> <Link to="/portal/allotments/create" className="btn btn-outline btn-success btn-sm text-center justify-center">{`+ Add Allotment`}</Link></div>
                     </div>
                     <div className="mt-4">
                         <input
@@ -72,21 +75,29 @@ const UserManagement = () => {
                             <thead>
                                 <tr>
                                     <th></th>
-                                    <th>First Name</th>
-                                    <th>Last Name</th>
-                                    <th>Email</th>
-                                    <th>Role</th>
+                                    <th>Allotment Code</th>
+                                    <th>Date of Occupation</th>
+                                    <th>Facility Code</th>
+                                    <th>Address</th>
+                                    <th>City</th>
+                                    <th>Previous Allottee</th>
+                                    <th>Current Allottee</th>
+                                    <th>Status</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {filteredUsers.map(user => (
-                                    <tr key={user.id} className='hover'>
-                                        <th>{user.id}</th>
-                                        <td>{user.name}</td>
-                                        <td>{user.contact}</td>
-                                        <td>{user.email}</td>
-                                        <td>{user.role}</td>
+                                {filteredAllotments.map(allotment => (
+                                    <tr key={allotment.id} className='hover'>
+                                        <th>{allotment.id}</th>
+                                        <td>{allotment["Allotment Code"]}</td>
+                                        <td>{allotment["Date of Occupation"]}</td>
+                                        <td>{allotment["Facility Code"]}</td>
+                                        <td>{allotment.Address}</td>
+                                        <td>{allotment.City}</td>
+                                        <td>{allotment["Previous Allottee"]}</td>
+                                        <td>{allotment["Current Allottee"]}</td>
+                                        <td>{allotment.Status}</td>
                                         <td className='relative'>
                                             <BsThreeDots size={22} onClick={toggleOptions} />
                                             {showOptions && (
@@ -102,10 +113,12 @@ const UserManagement = () => {
                             </tbody>
                         </table>
                     </div>
+
+
                 </div>
             </Sidebar>
         </div>
     );
 };
 
-export default UserManagement;
+export default Allotments;

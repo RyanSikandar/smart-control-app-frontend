@@ -10,6 +10,12 @@ import AddFacility from './pages/AddFacility';
 import ViewFacility from './pages/ViewFacility';
 import UserManagement from './pages/UserManagement';
 import AddUser from './pages/AddUser';
+import Allotments from './pages/Allotments';
+import AddAllotment from './pages/AddAllotment';
+import ViewAllotment from './pages/ViewAllotment';
+import Complains from './pages/Complains';
+import AssignComplains from './pages/AssignComplains';
+import ViewComplains from './pages/ViewComplains';
 function App() {
   return (
     <div className="App">
@@ -25,7 +31,13 @@ function App() {
           <Route path="/portal/facilities/view/:id" element={<ViewFacility />} />
           <Route path="/portal/usermanagement" element = {<UserManagement/>}/>
           <Route path="/portal/usermanagement/create" element = {<AddUser/>}/>
-        </Routes>
+          <Route path="/portal/allotments" element = {<Allotments/>}/>
+          <Route path="/portal/allotments/create" element = {<AddAllotment/>}/>
+          <Route path="/portal/allotments/view/:id" element={<ViewAllotment />} />
+          <Route path="/portal/complains" element = {<Complains/>}/>
+          <Route path="/portal/complains/assign/:id" element = {<AssignComplains/>}/>
+          <Route path="/portal/complains/view/:id" element={<ViewComplains />} />
+          </Routes>
       </BrowserRouter>
     </div>
   );
