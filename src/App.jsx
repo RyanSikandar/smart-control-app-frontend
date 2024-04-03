@@ -8,6 +8,7 @@ import Facilities from './pages/Facilities';
 import { ServiceManager } from './pages/ServiceManager';
 import AddFacility from './pages/AddFacility';
 import ViewFacility from './pages/ViewFacility';
+import UserManagement from './pages/UserManagement';
 function App() {
   return (
     <div className="App">
@@ -21,6 +22,7 @@ function App() {
           <Route path="/portal/facilities" element={<Facilities/>}/>
           <Route path ="/portal/facilities/add" element={<AddFacility/>}/>
           <Route path="/portal/facilities/view/:id" element={<ViewFacility />} />
+          <Route path="/portal/usermanagement" element = {<UserManagement/>}/>
         </Routes>
       </BrowserRouter>
     </div>

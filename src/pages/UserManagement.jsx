@@ -3,7 +3,7 @@ import Sidebar from '../components/Sidebar';
 import { BsThreeDots } from 'react-icons/bs';
 import { Link, useNavigate } from 'react-router-dom';
 
-const Facilities = () => {
+const UserManagement = () => {
     const [showOptions, setShowOptions] = useState(false);
     const navigate = useNavigate();
     const toggleOptions = () => {
@@ -28,35 +28,29 @@ const Facilities = () => {
         <div>
             <Sidebar>
                 <div className='font-bold ml-4 p-4'>
-                
-                <div className='flex justify-between'>
-                <div><h1>Facilities</h1></div>
-                <div> <Link to="/portal/facilities/add" className="btn btn-outline btn-success btn-sm text-center justify-center">{`+ Add Facility`}</Link></div>
-                </div>
+                    <div className='flex justify-between'>
+                        <div><h1>User Management</h1></div>
+                        <div> <Link to="/portal/usermanagement/create" className="btn btn-outline btn-success btn-sm text-center justify-center">{`+ Add New User`}</Link></div>
+                    </div>
                     <div className="overflow-x-auto">
                         <table className="table">
                             <thead>
                                 <tr>
                                     <th></th>
-                                    <th>Facility Code</th>
-                                    <th>Address</th>
-                                    <th>City</th>
-                                    <th>Type of Accommodation</th>
-                                    <th>Allottee</th>
-                                    <th>Status</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr className='hover'>
                                     <th>1</th>
-                                    <td>FLT-0013</td>
-                                    <td>169/2,MOQ,Risalpur Cantt</td>
-                                    <td>Risalpur Cantt</td>
-                                    <td>Type B</td>
-                                    <td>31304-7532555-5, Capt Umar Saddiq</td>
-                                    <td>Alotted</td>
-                                    <td className='relative'>
+                                    <td>Electrician</td>
+                                    <td>Spr Jabbar Hussain</td>
+                                    <td>jabbar@gmail.com</td>
+                                    <td>Role</td>                                    <td className='relative'>
                                         <BsThreeDots size={22} onClick={toggleOptions} />
                                         {showOptions && (
                                             <div className=' bg-white border rounded-md shadow-lg'>
@@ -76,4 +70,4 @@ const Facilities = () => {
     );
 };
 
-export default Facilities;
+export default UserManagement;
