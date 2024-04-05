@@ -35,10 +35,10 @@ const AddAllotment = () => {
             <Sidebar>
                 <div>
                     <div className='font-bold  p-4 justify-between flex'>
-                        <div><h1 className='ml-4'>Add New Facility</h1></div>
+                        <div><h1 className='ml-4'>Add New Allotment</h1></div>
                         <div>
                             {/* Use Link for navigation */}
-                            <Link to="/portal/alottments" className="btn btn-outline btn-success btn-sm text-center justify-center">{`< Back`}</Link>
+                            <Link to="/portal/allotments" className="btn btn-outline btn-success btn-sm text-center justify-center">{`< Back`}</Link>
                         </div>
                     </div>
                     <div className='p-4'>
@@ -55,7 +55,7 @@ const AddAllotment = () => {
                             ))}
                         </div>
                         {/* Save Facility button */}
-                        <button onClick={handleSave} className="btn btn-success mt-4">Save Facility</button>
+                        <button onClick={handleSave} className="btn btn-success mt-4">Save Allotment</button>
                     </div>
                 </div>
             </Sidebar>

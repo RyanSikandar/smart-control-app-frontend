@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Sidebar from '../components/Sidebar';
 import { Link } from 'react-router-dom'; // Import Link
 
-const AddFacility = () => {
+const AddUser = () => {
     const [inputs, setInputs] = useState({
         "First Name": '',
         "Last Name": '',
@@ -41,7 +41,7 @@ const AddFacility = () => {
                         <div><h1 className='ml-4'>Add New User</h1></div>
                         <div>
                             {/* Use Link for navigation */}
-                            <Link to="/portal/usermangement" className="btn btn-outline btn-success btn-sm text-center justify-center">{`< Back`}</Link>
+                            <Link to="/portal/usermanagement" className="btn btn-outline btn-success btn-sm text-center justify-center">{`< Back`}</Link>
                         </div>
                     </div>
                     <div className='p-4'>
@@ -70,7 +70,7 @@ const AddFacility = () => {
                         <div className='font-bold  p-4 justify-between flex'>
                             <div><h1 className=''>Permissions</h1></div>
                             <div>
-                                <select id= "role" name="role" onChange={handleChange} className='mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'>
+                                <select id="role" name="role" onChange={handleChange} className='mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'>
                                     <option value="">Select Type</option>
                                     <option value="Type A">Type A</option>
                                     <option value="Type B">Type B</option>
@@ -86,4 +86,4 @@ const AddFacility = () => {
     );
 };
 
-export default AddFacility;
+export default AddUser;

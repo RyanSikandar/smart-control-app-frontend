@@ -19,13 +19,15 @@ import ViewComplains from './pages/ViewComplains';
 import RespondComplains from './pages/RespondComplains';
 import { ToastContainer } from 'react-toastify';
 import ResolveComplains from './pages/ResolveComplains';
+import NotFound from './pages/NotFound';
+
 function App() {
   return (
     <div className="App">
-    <ToastContainer />
+      <ToastContainer />
       <BrowserRouter>
         <Routes>
-        <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<About />} />
           <Route path="/services" element={<Services />} />
@@ -43,7 +45,8 @@ function App() {
           <Route path="/portal/complains/view/:id" element={<ViewComplains />} />
           <Route path="/portal/complains/respond/:id" element={<RespondComplains />} />
           <Route path="/portal/complains/resolve/:id" element={<ResolveComplains />} />
-          </Routes>
+          <Route path="*" element={<NotFound/>}/>
+        </Routes>
       </BrowserRouter>
     </div>
   );
