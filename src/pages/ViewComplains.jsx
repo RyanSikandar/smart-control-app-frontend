@@ -52,7 +52,7 @@ const ViewComplains = () => {
             <Sidebar>
                 <div>
                     <div className='font-bold  p-4 justify-between flex'>
-                        <div><h1 className='ml-2 text-xl'>Assign Complains</h1></div>
+                        <div><h1 className='ml-2 text-xl'>View Complains</h1></div>
                         <div>
                             {/* Use Link for navigation */}
                             <Link to="/portal/complains" className="btn btn-outline btn-success btn-sm text-center justify-center">{`< Back`}</Link>

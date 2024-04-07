@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Sidebar from '../components/Sidebar';
 import { BsThreeDots } from 'react-icons/bs';
 import { Link } from 'react-router-dom'; // Import Link
-
+import axios from 'axios';
 const AddAllotment = () => {
     const [showEdit, setShowEdit] = useState(false);
 
@@ -13,7 +13,9 @@ const AddAllotment = () => {
     const [inputs, setInputs] = useState({
         "Select Facility": '',
         "New Allottee": '',
-        "Date of Occupation": '', // Initialize with empty string
+        "Date of Occupation": '',
+        "Allotment Code": ''
+
     });
 
     const handleChange = (e) => {
@@ -27,7 +29,24 @@ const AddAllotment = () => {
     const handleSave = () => {
         // Send data to backend here
         console.log("Saving facility data:", inputs);
+
+        const formattedData = {
+            Acode: inputs["Allotment Code"],
+            Fcode: inputs["Select Facility"],
+            Allottee: inputs["New Allottee"],
+            dateOfOccupation: inputs["Date of Occupation"]
+        }
         // You can send a POST request to your backend API endpoint here
+        axios.post('http://localhost:5000/api/allotment/addAllotment', formattedData)
+            .then(res => {
+                console.log(res.data);
+                alert('Allotment added successfully');
+            })
+            .catch(err => {
+                console.error(err);
+                alert('Failed to add allotment');
+            });
+
     };
 
     return (

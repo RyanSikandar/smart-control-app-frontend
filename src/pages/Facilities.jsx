@@ -26,17 +26,6 @@ const Facilities = () => {
         getFacilities();
     }, []);
 
-    const viewFacility = async (id) => {
-        try {
-            const { data } = await axios.get(`http://localhost:5000/api/facility/facilityData/${id}`);
-            console.log(data);
-        } catch (error) {
-            console.error('Error fetching facility:', error);
-        }
-
-
-    }
-
     const handleOptionClick = (option, id) => {
         // Handle click based on the option
         if (option === 'edit') {

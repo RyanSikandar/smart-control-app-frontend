@@ -2,17 +2,18 @@ import React, { useState } from 'react';
 import Sidebar from '../components/Sidebar';
 import { BsThreeDots } from 'react-icons/bs';
 import { Link, useNavigate } from 'react-router-dom';
-
+import axios from 'axios';
+import { useEffect } from 'react';
 const Allotments = () => {
     const [showOptions, setShowOptions] = useState(false);
-
+    const [allotments, setAllotments] = useState([]);
     const navigate = useNavigate();
 
     const toggleOptions = () => {
         setShowOptions(!showOptions);
     };
 
-    const handleOptionClick = (option) => {
+    const handleOptionClick = (option, id) => {
         // Handle click based on the option
         if (option === 'edit') {
             // Handle edit option
@@ -21,7 +22,7 @@ const Allotments = () => {
             // Handle delete option
             console.log('Delete clicked');
         } else if (option === 'view') {
-            navigate('/portal/allotments/view/1');
+            navigate(`/portal/allotments/view/${id}`);
             console.log('View clicked');
         }
     };
@@ -50,6 +51,20 @@ const Allotments = () => {
         allotment["Current Allottee"].toLowerCase().includes(searchQuery.toLowerCase()) ||
         allotment.Status.toLowerCase().includes(searchQuery.toLowerCase())
     );
+
+    const getAllotments = async () => {
+        try {
+            let { data } = await axios.get('http://localhost:5000/api/allotment/getAllotmentInfo');
+            data = data.data;
+            setAllotments(data);
+        } catch (error) {
+            console.error('Error fetching facilities:', error);
+        }
+    };
+
+    useEffect(() => {
+        getAllotments();
+    }, []);
 
     return (
         <div>
@@ -80,31 +95,28 @@ const Allotments = () => {
                                     <th>Facility Code</th>
                                     <th>Address</th>
                                     <th>City</th>
-                                    <th>Previous Allottee</th>
-                                    <th>Current Allottee</th>
+                                    <th>Allottee</th>
                                     <th>Status</th>
-                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {filteredAllotments.map(allotment => (
-                                    <tr key={allotment.id} className='hover'>
-                                        <th>{allotment.id}</th>
-                                        <td>{allotment["Allotment Code"]}</td>
-                                        <td>{allotment["Date of Occupation"]}</td>
-                                        <td>{allotment["Facility Code"]}</td>
-                                        <td>{allotment.Address}</td>
-                                        <td>{allotment.City}</td>
-                                        <td>{allotment["Previous Allottee"]}</td>
-                                        <td>{allotment["Current Allottee"]}</td>
-                                        <td>{allotment.Status}</td>
+                                {allotments && allotments.map((allotment, index) => (
+                                    <tr key={index} className='hover'>
+                                        <th>{index + 1}</th>
+                                        <td>{allotment.allotmentCode}</td>
+                                        <td>{allotment.dateOfOccupation}</td>
+                                        <td>{allotment.facilityCode}</td>
+                                        <td>{allotment.facilityInfo.Address}</td>
+                                        <td>{allotment.facilityInfo.City}</td>
+                                        <td>{allotment.facilityInfo.Allottee}</td>
+                                        <td>{allotment.facilityInfo.Status}</td>
                                         <td className='relative'>
                                             <BsThreeDots size={22} onClick={toggleOptions} />
                                             {showOptions && (
                                                 <div className=' bg-white border rounded-md shadow-lg'>
-                                                    <p onClick={() => handleOptionClick('edit')} className='p-1 cursor-pointer'>Edit</p>
-                                                    <p onClick={() => handleOptionClick('delete')} className='p-1 cursor-pointer'>Delete</p>
-                                                    <p onClick={() => handleOptionClick('view')} className='p-1 cursor-pointer'>View</p>
+                                                    <p onClick={() => handleOptionClick('edit', allotment._id)} className='p-1 cursor-pointer'>Edit</p>
+                                                    <p onClick={() => handleOptionClick('delete', allotment._id)} className='p-1 cursor-pointer'>Delete</p>
+                                                    <p onClick={() => handleOptionClick('view', allotment._id)} className='p-1 cursor-pointer'>View</p>
                                                 </div>
                                             )}
                                         </td>

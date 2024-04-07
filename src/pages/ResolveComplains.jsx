@@ -82,22 +82,6 @@ const ResolveComplains = () => {
                             <Link to="/portal/complains" className="btn btn-outline btn-success btn-sm text-center justify-center">{`< Back`}</Link>
                         </div>
                     </div>
-
-                    <div className='p-6'>
-                        <h1 className='font-bold mb-2 text-xl'>Complain Information</h1>
-                        {/* Render complain data if it exists */}
-                        {complainData && (
-                            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-                                {Object.entries(complainData).map(([key, value]) => (
-                                    <div key={key} className="flex flex-col">
-                                        <label htmlFor={key} className="block text-sm font-medium text-gray-700">{key}</label>
-                                        <input type="text" id={key} name={key} value={value} readOnly className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
-                                    </div>
-                                ))}
-                            </div>
-                        )}
-                    </div>
-
                     <div className='p-6'>
                         <h1 className='font-bold mb-2 text-xl'>Complain Feeback</h1>
                         {/* Render assign complains form */}
@@ -113,7 +97,7 @@ const ResolveComplains = () => {
                             <table className="min-w-full divide-y divide-gray-200">
                                 <thead className="bg-gray-50">
                                     <tr>
-                                        
+
                                         <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Discipline</th>
                                         <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Satisfied</th>
                                         <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Not Satisfied</th>
@@ -122,7 +106,7 @@ const ResolveComplains = () => {
                                 <tbody className="bg-white divide-y divide-gray-200">
                                     {disciplineData.map((item, index) => (
                                         <tr key={index}>
-                                           
+
                                             <td className="px-6 py-4 whitespace-nowrap">{item.discipline}</td>
                                             <td className="px-6 py-4 whitespace-nowrap">
                                                 <input

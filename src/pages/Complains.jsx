@@ -2,24 +2,44 @@ import React, { useState } from 'react';
 import Sidebar from '../components/Sidebar';
 import { BsThreeDots } from 'react-icons/bs';
 import { Link, useNavigate } from 'react-router-dom';
-
+import axios from 'axios';
+import { useEffect } from 'react';
 const Complains = () => {
+    let userType = localStorage.getItem('userData');
+    userType = JSON.parse(userType);
+    userType = userType.data.type;
     const [showOptions, setShowOptions] = useState(false);
+    const [complains, setComplains] = useState([]);
     const navigate = useNavigate();
     const toggleOptions = () => {
         setShowOptions(!showOptions);
     };
 
-    const handleOptionClick = (option) => {
+    const getComplains = async () => {
+        try {
+            const { data } = await axios.get('http://localhost:5000/api/complains/getComplains');
+            console.log(data.data)
+            setComplains(data.data);
+        } catch (error) {
+            console.error('Error fetching Complains:', error);
+        }
+    };
+
+    useEffect(() => {
+        getComplains();
+    }, []);
+
+    const handleOptionClick = (option, id) => {
         // Handle click based on the option
         if (option === 'edit') {
             // Handle edit option
             console.log('Edit clicked');
-        } else if (option === 'delete') {
-            // Handle delete option
-            console.log('Delete clicked');
+        } else if (option === 'Assign') {
+            console.log(id)
+            navigate(`/portal/complains/assign/${id}`);
+
         } else if (option === 'view') {
-            navigate('/portal/complains/view/1');
+
             console.log('View clicked');
         }
     };
@@ -33,31 +53,6 @@ const Complains = () => {
     const handleSearchBlur = () => {
         setSearchExpanded(false);
     };
-    // Sample facilities data
-    const ComplaintData = [
-        {
-            id: 1, ComplainNo: 'Electrician', Nature: 'Spr Jabbar Hussain', Priority: 'jabbar@gmail.com', Description: 'Role',
-
-            "Complainant": '', "Complainant Contact": "", "Complainant Address": "", "Facility Code": "", Date: "",
-            Status: ""
-        },
-        // Add more user objects as needed
-    ];
-
-    // Filter facilities based on search query
-    const filteredComplaints = ComplaintData.filter(complaint =>
-        complaint.ComplainNo.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        complaint.Nature.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        complaint.Priority.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        complaint.Description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        complaint.Complainant.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        complaint["Complainant Contact"].toLowerCase().includes(searchQuery.toLowerCase()) ||
-        complaint["Complainant Address"].toLowerCase().includes(searchQuery.toLowerCase()) ||
-        complaint["Facility Code"].toLowerCase().includes(searchQuery.toLowerCase()) ||
-        complaint.Date.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        complaint.Status.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-
 
 
     return (
@@ -90,24 +85,22 @@ const Complains = () => {
                                     <th>Description</th>
                                     <th>Complainant Name</th>
                                     <th>Complainant Contact</th>
-                                    <th>Complainant Address</th>
                                     <th>Facility Code</th>
                                     <th>Date</th>
                                     <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {filteredComplaints.map(user => (
-                                    <tr key={user.id} className='hover'>
-                                        <th>{user.id}</th>
-                                        <td>{user.ComplainNo}</td>
+                                {complains.map((user, index) => (
+                                    <tr key={index} className='hover'>
+                                        <th>{index + 1}</th>
+                                        <td>{user.ComplaintNo}</td>
                                         <td>{user.Nature}</td>
                                         <td>{user.Priority}</td>
                                         <td>{user.Description}</td>
-                                        <td>{user.Complainant}</td>
-                                        <td>{user["Complainant Contact"]}</td>
-                                        <td> {user["Complainant Address"]}</td>
-                                        <td>{user["Facility Code"]}</td>
+                                        <td>{user.complainantName}</td>
+                                        <td> {user.Contact}</td>
+                                        <td>{user.Fcode}</td>
                                         <td>{user.Date}</td>
                                         <td>{user.Status}</td>
 
@@ -116,8 +109,10 @@ const Complains = () => {
                                             {showOptions && (
                                                 <div className=' bg-white border rounded-md shadow-lg'>
                                                     <p onClick={() => handleOptionClick('edit')} className='p-1 cursor-pointer'>Edit</p>
-                                                    <p onClick={() => handleOptionClick('delete')} className='p-1 cursor-pointer'>Delete</p>
-                                                    <p onClick={() => handleOptionClick('view')} className='p-1 cursor-pointer'>View</p>
+                                                    {
+                                                        userType.toLowerCase() === 'type a' && <p onClick={() => handleOptionClick('Assign', user._id)} className='p-1 cursor-pointer'>Assign</p>
+                                                    }
+                                                    <p onClick={() => handleOptionClick('view', user._id)} className='p-1 cursor-pointer'>View</p>
                                                 </div>
                                             )}
                                         </td>

@@ -31,21 +31,21 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<About />} />
           <Route path="/services" element={<Services />} />
-          <Route path="/portal" element={<ServiceManager/>}/>
-          <Route path="/portal/facilities" element={<Facilities/>}/>
-          <Route path ="/portal/facilities/add" element={<AddFacility/>}/>
+          <Route path="/portal" element={<ServiceManager />} />
+          <Route path="/portal/facilities" element={<Facilities />} />
+          <Route path="/portal/facilities/add" element={<AddFacility />} />
           <Route path="/portal/facilities/view/:id" element={<ViewFacility />} />
-          <Route path="/portal/usermanagement" element = {<UserManagement/>}/>
-          <Route path="/portal/usermanagement/create" element = {<AddUser/>}/>
-          <Route path="/portal/allotments" element = {<Allotments/>}/>
-          <Route path="/portal/allotments/create" element = {<AddAllotment/>}/>
+          <Route path="/portal/usermanagement" element={<UserManagement />} />
+          <Route path="/portal/usermanagement/create" element={<AddUser />} />
+          <Route path="/portal/allotments" element={<Allotments />} />
+          <Route path="/portal/allotments/create" element={<AddAllotment />} />
           <Route path="/portal/allotments/view/:id" element={<ViewAllotment />} />
-          <Route path="/portal/complains" element = {<Complains/>}/>
-          <Route path="/portal/complains/assign/:id" element = {<AssignComplains/>}/>
+          <Route path="/portal/complains" element={<Complains />} />
+          <Route path="/portal/complains/assign/:id" element={<AssignComplains />} />
           <Route path="/portal/complains/view/:id" element={<ViewComplains />} />
           <Route path="/portal/complains/respond/:id" element={<RespondComplains />} />
           <Route path="/portal/complains/resolve/:id" element={<ResolveComplains />} />
-          <Route path="*" element={<NotFound/>}/>
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </div>

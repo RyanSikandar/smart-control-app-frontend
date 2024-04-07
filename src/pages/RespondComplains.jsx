@@ -3,13 +3,15 @@ import Sidebar from '../components/Sidebar';
 import { Link, useParams } from 'react-router-dom'; // Import Link and useParams
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
 const RespondComplains = () => {
     const { id } = useParams(); // Get the facility ID from the URL params
     const [complainData, setComplainData] = useState(null); // State to hold complain data
     const [remarks, setRemarks] = useState(''); // Remarks
-    const handleSave = () => {
+    const handleSave = async () => {
+        await axios.patch(`http://localhost:5000/api/complains/completeComplain/${id}`)
         //Delete the data from the database
-        toast.success(`Complain No:${id} completed`);
+        toast.success(`Complain completed`);
         // Logic to save respond complain data
         console.log('Remarks:', remarks);
     };
