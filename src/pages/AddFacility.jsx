@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import Sidebar from '../components/Sidebar';
 import { BsThreeDots } from 'react-icons/bs';
-import { Link } from 'react-router-dom'; // Import Link
+import { Link } from 'react-router-dom';
 
+import axios from 'axios';
 const AddFacility = () => {
     const [showEdit, setShowEdit] = useState(false);
 
@@ -12,14 +13,11 @@ const AddFacility = () => {
 
     const [inputs, setInputs] = useState({
         "Facility Code": '',
-        "House/Flat": '',
-        "Street/Lane": '',
-        "Block/Colony/Area": '',
-        "FmmHQ": '',
+        "Address": '',
         "City": '',
         "Type of Accommodation": '',
         "Year of Construction": '',
-        "Date of Vacation": '', // Initialize with empty string
+        "Date of Vacation": '',
         "Google Maps URL": '',
         "Construction Drawing": '',
         "House Image": '',
@@ -41,10 +39,28 @@ const AddFacility = () => {
         }));
     };
 
-    const handleSave = () => {
+    const handleSave = async () => {
         // Send data to backend here
         console.log("Saving facility data:", inputs);
+        const data = {
+            Fcode: inputs["Facility Code"],
+            City: inputs["City"],
+            Type: inputs["Type of Accommodation"],
+            Address: inputs["Address"],
+            Year: inputs["Year of Construction"],
+            Date: inputs["Date of Vacation"],
+            URL: inputs["Google Maps URL"]
+        }
         // You can send a POST request to your backend API endpoint here
+        const check = await axios.post('http://localhost:5000/api/facility/addFacility', data);
+
+        if (check.status === 201) {
+            alert('Facility added successfully');
+
+        } else {
+            console.log('Facility addition failed');
+        }
+
     };
 
     return (

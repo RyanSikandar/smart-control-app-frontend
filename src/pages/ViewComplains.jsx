@@ -72,30 +72,30 @@ const ViewComplains = () => {
                         </div>
                     </div>
                     <div className='p-6'>
-                    <h1 className='font-bold mb-2 text-xl'>Complain Assignment</h1>
-                    <div className="overflow-x-auto">
-                        <table className="table">
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>Technician Name</th>
-                                    <th>Assign Date</th>
-                                    <th>Deadline</th>
-                                    <th>Remarks</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr className='hover'>
-                                    <th>1</th>
-                                    <td>Electrician</td>
-                                    <td>19-12-2023</td>
-                                    <td>19-12-2023</td>
-                                    <td>Undefined</td>
-                                    
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div></div>
+                        <h1 className='font-bold mb-2 text-xl'>Complain Assignment</h1>
+                        <div className="overflow-x-auto">
+                            <table className="table">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Technician Name</th>
+                                        <th>Assign Date</th>
+                                        <th>Deadline</th>
+                                        <th>Remarks</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr className='hover'>
+                                        <th>1</th>
+                                        <td>Electrician</td>
+                                        <td>19-12-2023</td>
+                                        <td>19-12-2023</td>
+                                        <td>Undefined</td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div></div>
                 </div>
             </Sidebar>
         </div>

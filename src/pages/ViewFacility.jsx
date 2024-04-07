@@ -26,13 +26,21 @@ const ViewFacility = () => {
 
                 const response_allot = await axios.get(`http://localhost:5000/api/allotment/getAllotmentInfo`);
                 const allotmentData = response_allot.data.data;
-                console.log(allotmentData);
+                // console.log(allotmentData);
                 //Filter allotmentdata to include allotment of the facility
-                
-                const filteredAllotmentData = {
+                let filteredAllotmentData = allotmentData.filter(allotment => allotment.facilityCode === data.Fcode);
+                filteredAllotmentData = filteredAllotmentData.map(allotment => {
+                    return {
+                        AllotmentCode: allotment.allotmentCode,
+                        DateOfOccupation: allotment.dateOfOccupation,
+                        Allottee: allotment.facilityInfo.Allottee,
+                        Status: allotment.facilityInfo.Status
+                    };
 
-                }
+                })
+                console.log(filteredAllotmentData);
                 setFacilityData(filteredData);
+                setAllotmentData(filteredAllotmentData);
             } catch (error) {
                 console.error('Error fetching facility data:', error);
             }
@@ -79,23 +87,24 @@ const ViewFacility = () => {
                             <thead>
                                 <tr>
                                     <th></th>
-                                    <th>Allottmet Code</th>
+                                    <th>Allotment Code</th>
                                     <th>Date of Occupation</th>
                                     <th>Allotte</th>
-                           
+
                                     <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr className='hover'>
-                                    <th>1</th>
-                                    <td>FLT-0013</td>
-                                    <td>17-03-2023</td>
-                                    <td>31304-7532555-5, Capt Umar</td>
-                                    
-                                    <td>Current Allotment</td>
+                                {allotmentData && allotmentData.map((allotment, index) => (
+                                    <tr className='hover' key={index}>
+                                        <th>{index + 1}</th>
+                                        <td>{allotment.AllotmentCode}</td>
+                                        <td>{allotment.DateOfOccupation}</td>
+                                        <td>{allotment.Allottee}</td>
+                                        <td>{allotment.Status}</td>
 
-                                </tr>
+                                    </tr>
+                                ))}
                             </tbody>
                         </table>
                     </div>
