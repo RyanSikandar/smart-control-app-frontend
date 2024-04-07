@@ -8,6 +8,7 @@ import { FaArrowsAltH } from "react-icons/fa";
 import { TbWorld } from "react-icons/tb";
 import { FaRegUser } from "react-icons/fa";
 import { Navigate, useNavigate } from 'react-router-dom';
+
 const Sidebar = ({ children }) => {
     const navigate = useNavigate();
     const [isExtended, setIsExtended] = useState(false);
@@ -32,7 +33,11 @@ const Sidebar = ({ children }) => {
                     <div className='flex flex-col'>
                         <div><h1 className='mb-1'>Welcome Jee !</h1></div>
                         <div className='flex justify-center items-center gap-4'>
-                            <CiPower size={25} className='hover: cursor-pointer' />
+                            <CiPower size={25} className='hover: cursor-pointer' onClick={() => {
+                                
+                                localStorage.clear();
+                                navigate("/login");
+                            }} />
                             <RxAvatar size={25} className='hover: cursor-pointer' />
                             <IoIosNotificationsOutline size={25} className='hover: cursor-pointer' />
                         </div>

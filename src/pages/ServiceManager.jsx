@@ -1,14 +1,28 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Sidebar from '../components/Sidebar'
 import { MdOutlineBusiness } from "react-icons/md";
 export const ServiceManager = () => {
+    // Retrieve data from local storage
+    const userDataString = localStorage.getItem('userData');
+
+    // Parsing the JSON string into an object
+    const userData = JSON.parse(userDataString);
+
+    const [name, setName] = useState('')
+
+    useEffect(() => {
+        if (userData) {
+            setName(userData.data.name)
+        }
+    })
+
     return (
         <div>
             <Sidebar>
                 <div className=' text-black'>
 
                     <div className='justify-start font-bold ml-4 p-4'>
-                        <h1>Welcome Super Admin</h1>
+                        <h1>Welcome {name}</h1>
                     </div>
 
                     <div className='mt-10 flex flex-wrap justify-around'>

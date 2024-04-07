@@ -1,58 +1,73 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Sidebar from '../components/Sidebar';
 import { BsThreeDots } from 'react-icons/bs';
 import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Facilities = () => {
     const [showOptions, setShowOptions] = useState(false);
-
+    const [facilities, setFacilities] = useState([]);
     const navigate = useNavigate();
 
     const toggleOptions = () => {
         setShowOptions(!showOptions);
     };
 
-    const handleOptionClick = (option) => {
+    const getFacilities = async () => {
+        try {
+            const { data } = await axios.get('http://localhost:5000/api/facility/allfacilityData');
+            setFacilities(data.data);
+        } catch (error) {
+            console.error('Error fetching facilities:', error);
+        }
+    };
+
+    useEffect(() => {
+        getFacilities();
+    }, []);
+
+    const viewFacility = async (id) => {
+        try {
+            const { data } = await axios.get(`http://localhost:5000/api/facility/facilityData/${id}`);
+            console.log(data);
+        } catch (error) {
+            console.error('Error fetching facility:', error);
+        }
+
+
+    }
+
+    const handleOptionClick = (option, id) => {
         // Handle click based on the option
         if (option === 'edit') {
+
             // Handle edit option
             console.log('Edit clicked');
+
         } else if (option === 'delete') {
             // Handle delete option
             console.log('Delete clicked');
         } else if (option === 'view') {
-            navigate('/portal/facilities/view/1');
+            navigate(`/portal/facilities/view/${id}`);
             console.log('View clicked');
         }
     };
+
     const [searchExpanded, setSearchExpanded] = useState(false);
     const handleSearchClick = () => {
         setSearchExpanded(true);
     };
-    const [searchQuery, setSearchQuery] = useState('');
 
     const handleSearchBlur = () => {
         setSearchExpanded(false);
     };
-    // Sample facilities data
-    const facilitiesData = [
-        { id: 1, facilityCode: 'FLT-0013', address: '169/2, MOQ, Risalpur Cantt', city: 'Risalpur Cantt', accommodationType: 'Type B', allottee: '31304-7532555-5, Capt Umar Saddiq', status: 'Allotted' },
-        // Add more facility objects as needed
-    ];
-    // Filter facilities based on search query
-    const filteredFacilities = facilitiesData.filter(facility =>
-        facility.facilityCode.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        facility.address.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        facility.city.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        facility.accommodationType.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        facility.allottee.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        facility.status.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+
+    const [searchQuery, setSearchQuery] = useState('');
+
     return (
         <div>
             <Sidebar>
                 <div className='font-bold ml-4 p-4'>
-
                     <div className='flex justify-between'>
                         <div><h1>Facilities</h1></div>
                         <div> <Link to="/portal/facilities/add" className="btn btn-outline btn-success btn-sm text-center justify-center">{`+ Add Facility`}</Link></div>
@@ -82,22 +97,22 @@ const Facilities = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {filteredFacilities.map(facility => (
-                                    <tr key={facility.id} className='hover'>
-                                        <th>{facility.id}</th>
-                                        <td>{facility.facilityCode}</td>
-                                        <td>{facility.address}</td>
-                                        <td>{facility.city}</td>
-                                        <td>{facility.accommodationType}</td>
-                                        <td>{facility.allottee}</td>
-                                        <td>{facility.status}</td>
+                                {facilities && facilities.map((facility, index) => (
+                                    <tr key={index} className='hover'>
+                                        <th>{index + 1}</th>
+                                        <td>{facility.Fcode}</td>
+                                        <td>{facility.Address}</td>
+                                        <td>{facility.City}</td>
+                                        <td>{facility.Type}</td>
+                                        <td>{facility.Allotee}</td>
+                                        <td>{facility.Status}</td>
                                         <td className='relative'>
                                             <BsThreeDots size={22} onClick={toggleOptions} />
                                             {showOptions && (
                                                 <div className=' bg-white border rounded-md shadow-lg'>
-                                                    <p onClick={() => handleOptionClick('edit')} className='p-1 cursor-pointer'>Edit</p>
-                                                    <p onClick={() => handleOptionClick('delete')} className='p-1 cursor-pointer'>Delete</p>
-                                                    <p onClick={() => handleOptionClick('view')} className='p-1 cursor-pointer'>View</p>
+                                                    <p onClick={() => handleOptionClick('edit', facility._id)} className='p-1 cursor-pointer'>Edit</p>
+                                                    <p onClick={() => handleOptionClick('delete', facility._id)} className='p-1 cursor-pointer'>Delete</p>
+                                                    <p onClick={() => handleOptionClick('view', facility._id)} className='p-1 cursor-pointer'>View</p>
                                                 </div>
                                             )}
                                         </td>
@@ -106,7 +121,6 @@ const Facilities = () => {
                             </tbody>
                         </table>
                     </div>
-
                 </div>
             </Sidebar>
         </div>
