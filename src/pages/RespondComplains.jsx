@@ -9,7 +9,7 @@ const RespondComplains = () => {
     const [complainData, setComplainData] = useState(null); // State to hold complain data
     const [remarks, setRemarks] = useState(''); // Remarks
     const handleSave = async () => {
-        await axios.patch(`http://localhost:5000/api/complains/completeComplain/${id}`)
+        await axios.patch(`https://smart-control-app-backend.vercel.app/api/complains/completeComplain/${id}`)
         //Delete the data from the database
         toast.success(`Complain completed`);
         // Logic to save respond complain data

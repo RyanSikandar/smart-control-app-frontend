@@ -51,7 +51,7 @@ const AddComplain = () => {
             complainantAddress: inputs["Complainant Address"],
             Date: inputs["Date"]
         }
-        const check = await axios.post('http://localhost:5000/api/complains/addComplain', data);
+        const check = await axios.post('https://smart-control-app-backend.vercel.app/api/complains/addComplain', data);
         if (check.status === 201) {
             alert('Complaint added successfully');
         }

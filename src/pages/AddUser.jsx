@@ -48,7 +48,7 @@ const AddUser = () => {
                 UnitNo: inputs["Unit No"],
                 Address: inputs["Address"],
             }
-            const check = await axios.post('http://localhost:5000/api/users/Register', data);
+            const check = await axios.post('https://smart-control-app-backend.vercel.app/api/users/Register', data);
             console.log(check);
             if (check.status === 201) {
                 alert('User added successfully');

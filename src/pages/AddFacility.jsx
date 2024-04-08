@@ -52,7 +52,7 @@ const AddFacility = () => {
             URL: inputs["Google Maps URL"]
         }
         // You can send a POST request to your backend API endpoint here
-        const check = await axios.post('http://localhost:5000/api/facility/addFacility', data);
+        const check = await axios.post('https://smart-control-app-backend.vercel.app/api/facility/addFacility', data);
 
         if (check.status === 201) {
             alert('Facility added successfully');

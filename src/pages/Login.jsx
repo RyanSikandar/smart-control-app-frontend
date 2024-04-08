@@ -15,7 +15,7 @@ function Login() {
   const loginUser = async (userData) => {
     try {
       const response = await axios.post(
-        `http://localhost:5000/api/users/Login`,
+        `https://smart-control-app-backend.vercel.app/api/users/Login`,
         userData
       );
       if (response) {

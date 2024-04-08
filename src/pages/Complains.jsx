@@ -20,7 +20,7 @@ const Complains = () => {
 
     const getComplains = async () => {
         try {
-            const { data } = await axios.get('http://localhost:5000/api/complains/getComplains');
+            const { data } = await axios.get('https://smart-control-app-backend.vercel.app/api/complains/getComplains');
             setComplains(data.data);
             setLoading(false);
         } catch (error) {

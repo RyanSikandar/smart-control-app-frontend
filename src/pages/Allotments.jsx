@@ -18,7 +18,7 @@ const Allotments = () => {
         if (currentUser && currentUser.data.type === 'admin') {
             const getAllotments = async () => {
                 try {
-                    const { data } = await axios.get('http://localhost:5000/api/allotment/getAllotmentInfo');
+                    const { data } = await axios.get('https://smart-control-app-backend.vercel.app/api/allotment/getAllotmentInfo');
                     setAllotments(data.data);
                     setLoading(false);
                 } catch (error) {

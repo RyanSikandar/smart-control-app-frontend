@@ -22,7 +22,7 @@ const ViewComplains = () => {
                 // Assuming fetchDataFromAPI is a function that fetches complain data from backend
                 // const complainData = await fetchDataFromAPI(id);
 
-                const complain = await axios.get(`http://localhost:5000/api/complains/Complain/${id}`);
+                const complain = await axios.get(`https://smart-control-app-backend.vercel.app/api/complains/Complain/${id}`);
                 console.log(complain.data.data);
                 setComplainData({
                     "Complain No": complain.data.data.ComplaintNo,

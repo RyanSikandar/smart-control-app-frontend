@@ -11,7 +11,7 @@ const ViewFacility = () => {
         const fetchFacilityData = async () => {
             try {
                 // Fetch facility data from the API using the facility ID
-                const response = await axios.get(`http://localhost:5000/api/facility/facilityData/${id}`);
+                const response = await axios.get(`https://smart-control-app-backend.vercel.app/api/facility/facilityData/${id}`);
                 const data = response.data.data;
                 // Filter the facility data to include only the desired attributes
                 const filteredData = {
@@ -24,7 +24,7 @@ const ViewFacility = () => {
                     URL: data.URL
                 };
 
-                const response_allot = await axios.get(`http://localhost:5000/api/allotment/getAllotmentInfo`);
+                const response_allot = await axios.get(`https://smart-control-app-backend.vercel.app/api/allotment/getAllotmentInfo`);
                 const allotmentData = response_allot.data.data;
                 // console.log(allotmentData);
                 //Filter allotmentdata to include allotment of the facility

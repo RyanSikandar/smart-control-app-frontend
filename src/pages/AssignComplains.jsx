@@ -14,7 +14,7 @@ const AssignComplains = () => {
         console.log('User:', user);
         console.log('Date:', date);
         console.log('Remarks:', remarks);
-        const check = await axios.patch(`http://localhost:5000/api/complains/assignComplain/${id}`, {
+        const check = await axios.patch(`https://smart-control-app-backend.vercel.app/api/complains/assignComplain/${id}`, {
             Technician: user,
             Deadline: date,
             Remarks: remarks
@@ -30,7 +30,7 @@ const AssignComplains = () => {
         // Fetch all users from the API
         const fetchUsers = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/users/allUsers');
+                const response = await axios.get('https://smart-control-app-backend.vercel.app/api/users/allUsers');
                 // Filter users to include only those with type 'service provider'
                 const serviceProviders = response.data.data.filter(user => user.Type === 'service provider');
                 setUsers(serviceProviders);

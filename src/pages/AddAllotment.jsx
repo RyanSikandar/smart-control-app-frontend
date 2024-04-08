@@ -37,7 +37,7 @@ const AddAllotment = () => {
             dateOfOccupation: inputs["Date of Occupation"]
         }
         // You can send a POST request to your backend API endpoint here
-        axios.post('http://localhost:5000/api/allotment/addAllotment', formattedData)
+        axios.post('https://smart-control-app-backend.vercel.app/api/allotment/addAllotment', formattedData)
             .then(res => {
                 console.log(res.data);
                 alert('Allotment added successfully');

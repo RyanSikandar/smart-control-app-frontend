@@ -12,7 +12,7 @@ const ViewAllotment = () => {
         const fetchAllotmentData = async () => {
             try {
                 // Assuming fetchDataFromAPI is a function that fetches allotment data from backend
-                const allotment = await axios.get(`http://localhost:5000/api/allotment/getAllotmentInfo/${id}`);
+                const allotment = await axios.get(`https://smart-control-app-backend.vercel.app/api/allotment/getAllotmentInfo/${id}`);
                 const newAllotmentData = {
                     "Allotment Code": allotment.data.data.Acode,
                     "Facility Code": allotment.data.data.Fcode,

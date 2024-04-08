@@ -17,7 +17,7 @@ const Facilities = () => {
 
     const getFacilities = async () => {
         try {
-            const { data } = await axios.get('http://localhost:5000/api/facility/allfacilityData');
+            const { data } = await axios.get('https://smart-control-app-backend.vercel.app/api/facility/allfacilityData');
             setFacilities(data.data);
             setLoading(false);
         } catch (error) {
