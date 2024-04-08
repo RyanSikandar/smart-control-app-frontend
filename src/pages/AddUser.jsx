@@ -103,7 +103,7 @@ const AddUser = () => {
                                     <option value="">Select Type</option>
                                     <option value="admin">Admin</option>
                                     <option value="user">User</option>
-                                    <option value="service">Service Provider</option>
+                                    <option value="service provider">Service Provider</option>
                                 </select>
                             </div>
                         </div>
