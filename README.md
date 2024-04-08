@@ -7,7 +7,7 @@
 
 The frontend of the application is deployed on Vercel. You can access it using the following link:
 
-[Frontend Deployment Link]((https://smart-control-app-frontend.vercel.app/))
+[Frontend Deployment Link](https://smart-control-app-frontend.vercel.app/)
 
 ### Local Development
 
