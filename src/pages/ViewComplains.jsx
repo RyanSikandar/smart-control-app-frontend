@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Sidebar from '../components/Sidebar';
 import { Link, useParams } from 'react-router-dom'; // Import Link and useParams
-
+import axios from 'axios';
 const ViewComplains = () => {
     const { id } = useParams(); // Get the facility ID from the URL params
     const [complainData, setComplainData] = useState(null); // State to hold complain data
@@ -21,17 +21,20 @@ const ViewComplains = () => {
             try {
                 // Assuming fetchDataFromAPI is a function that fetches complain data from backend
                 // const complainData = await fetchDataFromAPI(id);
+
+                const complain = await axios.get(`http://localhost:5000/api/complains/Complain/${id}`);
+                console.log(complain.data.data);
                 setComplainData({
-                    "Complain No": 'Electrician',
-                    "Nature of Complain": 'Spr Jabbar Hussain',
-                    "Priority": 'jabbar@gmail.com',
-                    "Description": 'Role',
-                    "Complainant Name": '',
-                    "Complainant Contact": '',
-                    "Complainant Address": '',
-                    "Facility Code": '',
-                    "Date": '',
-                    "Status": ''
+                    "Complain No": complain.data.data.ComplaintNo,
+                    "Nature of Complain": complain.data.data.Nature,
+                    "Priority": complain.data.data.Priority,
+                    "Description": complain.data.data.Description,
+                    "Complainant Name": complain.data.data.complainantName,
+                    "Complainant Contact": complain.data.data.Contact,
+                    "Complainant Address": complain.data.data.complainantAddress,
+                    "Facility Code": complain.data.data.Fcode,
+                    "Date": complain.data.data.Date,
+                    "Status": complain.data.data.Status
                 });
             } catch (error) {
                 console.error('Error fetching complain data:', error);
@@ -79,20 +82,19 @@ const ViewComplains = () => {
                                     <tr>
                                         <th></th>
                                         <th>Technician Name</th>
-                                        <th>Assign Date</th>
                                         <th>Deadline</th>
                                         <th>Remarks</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr className='hover'>
+                                    {<tr className='hover'>
                                         <th>1</th>
-                                        <td>Electrician</td>
-                                        <td>19-12-2023</td>
-                                        <td>19-12-2023</td>
-                                        <td>Undefined</td>
+                                        <td>{complainData["Nature of Complain"]}</td>
 
-                                    </tr>
+                                        <td>{complainData["Date"]}</td>
+                                        <td>{complainData['Remarks']}</td>
+
+                                    </tr>}
                                 </tbody>
                             </table>
                         </div></div>

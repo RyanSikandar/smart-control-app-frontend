@@ -20,6 +20,7 @@ import RespondComplains from './pages/RespondComplains';
 import { ToastContainer } from 'react-toastify';
 import ResolveComplains from './pages/ResolveComplains';
 import NotFound from './pages/NotFound';
+import AddComplain from './pages/AddComplain';
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
           <Route path="/portal/complains/view/:id" element={<ViewComplains />} />
           <Route path="/portal/complains/respond/:id" element={<RespondComplains />} />
           <Route path="/portal/complains/resolve/:id" element={<ResolveComplains />} />
+          <Route path="/portal/complains/addComplain" element={<AddComplain />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

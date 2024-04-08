@@ -10,6 +10,15 @@ import { FaRegUser } from "react-icons/fa";
 import { Navigate, useNavigate } from 'react-router-dom';
 
 const Sidebar = ({ children }) => {
+    //Local storage
+    // Retrieve data from local storage
+    const userDataString = localStorage.getItem('userData');
+
+    // Parsing the JSON string into an object
+    const userData = JSON.parse(userDataString);
+    const name = userData.data.name;
+    const type = userData.data.type;
+
     const navigate = useNavigate();
     const [isExtended, setIsExtended] = useState(false);
     const handleClicked = (icon) => {
@@ -34,7 +43,7 @@ const Sidebar = ({ children }) => {
                         <div><h1 className='mb-1'>Welcome Jee !</h1></div>
                         <div className='flex justify-center items-center gap-4'>
                             <CiPower size={25} className='hover: cursor-pointer' onClick={() => {
-                                
+
                                 localStorage.clear();
                                 navigate("/login");
                             }} />
@@ -45,22 +54,22 @@ const Sidebar = ({ children }) => {
                 <nav
                     className={`bg-[#5C8D89] text-white w-fit h-screen p-4 fixed top-0 z-10`} onMouseEnter={() => setIsExtended(true)} onMouseLeave={() => setIsExtended(false)}>
                     {/* Add your icons here */}
-                    <div className="flex gap-4 p-5" > <TbWorld size={25} />{isExtended && <p onClick={
+                    {<div className="flex gap-4 p-5" > <TbWorld size={25} />{isExtended && <p onClick={
                         () => handleClicked("Complains")
-                    } className='hover:underline cursor-pointer'>Complains</p>}</div>
+                    } className='hover:underline cursor-pointer'>Complains</p>}</div>}
 
-                    <div className="flex gap-4 p-5" > <FaRegUser size={25} />{isExtended && <p className='hover:underline cursor-pointer' onClick={
+                    {type === "admin" && <div className="flex gap-4 p-5" > <FaRegUser size={25} />{isExtended && <p className='hover:underline cursor-pointer' onClick={
                         () => handleClicked("UserManagement")
-                    }>User Management</p>}</div>
-                    <div className="flex gap-4 p-5" > <RiHomeGearFill size={25}
+                    }>User Management</p>}</div>}
+                    {type === "admin" && <div className="flex gap-4 p-5" > <RiHomeGearFill size={25}
                     />{isExtended && <p className='hover:underline cursor-pointer' onClick={
                         () => handleClicked("Facilities")
-                    }>Facilities</p>}</div>
-                    <div className="flex gap-4 p-5" > <FaArrowsAltH size={25}
+                    }>Facilities</p>}</div>}
+                    {type === "admin" && <div className="flex gap-4 p-5" > <FaArrowsAltH size={25}
 
                     /> {isExtended && <p className='hover:underline cursor-pointer' onClick={
                         () => handleClicked("Allotments")
-                    }>Allotments</p>}</div>
+                    }>Allotments</p>}</div>}
 
                 </nav>
             </div>

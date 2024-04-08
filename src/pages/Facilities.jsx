@@ -7,7 +7,9 @@ import axios from 'axios';
 const Facilities = () => {
     const [showOptions, setShowOptions] = useState(false);
     const [facilities, setFacilities] = useState([]);
+    const [error, setError] = useState('');
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(true);
 
     const toggleOptions = () => {
         setShowOptions(!showOptions);
@@ -17,6 +19,7 @@ const Facilities = () => {
         try {
             const { data } = await axios.get('http://localhost:5000/api/facility/allfacilityData');
             setFacilities(data.data);
+            setLoading(false);
         } catch (error) {
             console.error('Error fetching facilities:', error);
         }
@@ -72,7 +75,11 @@ const Facilities = () => {
                         />
                     </div>
                     <div className="overflow-x-auto">
-                        <table className="table">
+                       {loading ? (
+                            <div>Loading...</div>
+                        ) : error ? (
+                            <div>{error}</div>
+                        ) :( <table className="table">
                             <thead>
                                 <tr>
                                     <th></th>
@@ -108,7 +115,7 @@ const Facilities = () => {
                                     </tr>
                                 ))}
                             </tbody>
-                        </table>
+                        </table>)}
                     </div>
                 </div>
             </Sidebar>

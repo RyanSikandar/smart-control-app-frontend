@@ -21,16 +21,16 @@ const About = () => {
                         tincidunt arcu, id tincidunt justo nunc id nunc. Nulla facilisi. Nulla facilisi.
                     </p>
                     <div className='flex items-center mt-6'>
-                        <CiCircleCheck color='#5C8D89' size={"1.5em"}/>
+                        <CiCircleCheck color='#5C8D89' size={"1.5em"} />
                         <span className='ml-2'>Easy to use</span>
                     </div>
                     <div className='flex items-center mt-2'>
-                        <CiCircleCheck color='#5C8D89' size={"1.5em"}/>
+                        <CiCircleCheck color='#5C8D89' size={"1.5em"} />
                         <span className='ml-2'>Detail Analytics</span>
 
                     </div>
                     <div className='flex items-center mt-2'>
-                        <CiCircleCheck color='#5C8D89' size={"1.5em"}/>
+                        <CiCircleCheck color='#5C8D89' size={"1.5em"} />
                         <span className='ml-2'>Complain Tracking System</span>
 
                     </div>

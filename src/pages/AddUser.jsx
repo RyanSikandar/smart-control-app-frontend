@@ -28,34 +28,36 @@ const AddUser = () => {
     };
 
     const handleSave = async () => {
-        try{if (inputs["Password"] !== inputs["Confirm Password"]) {
-            alert("Passwords do not match");
-            return;
-        }
+        try {
+            if (inputs["Password"] !== inputs["Confirm Password"]) {
+                alert("Passwords do not match");
+                return;
+            }
 
-        // You can send a POST request to your backend API endpoint here
-        const data = {
-            fname: inputs["First Name"],
-            lname: inputs["Last Name"],
-            email: inputs["Email"],
-            password: inputs["Password"],
-            contact: inputs["Contact"],
-            cnic: inputs["CNIC"],
-            gender: inputs["Gender"],
-            type: inputs["Role"],
-            ArmyNo: inputs["PA/PSS/Army No"],
-            UnitNo: inputs["Unit No"],
-            Address: inputs["Address"],
+            // You can send a POST request to your backend API endpoint here
+            const data = {
+                fname: inputs["First Name"],
+                lname: inputs["Last Name"],
+                email: inputs["Email"],
+                password: inputs["Password"],
+                contact: inputs["Contact"],
+                cnic: inputs["CNIC"],
+                gender: inputs["Gender"],
+                type: inputs["Role"],
+                ArmyNo: inputs["PA/PSS/Army No"],
+                UnitNo: inputs["Unit No"],
+                Address: inputs["Address"],
+            }
+            const check = await axios.post('http://localhost:5000/api/users/Register', data);
+            console.log(check);
+            if (check.status === 201) {
+                alert('User added successfully');
+            }
         }
-        const check = await axios.post('http://localhost:5000/api/users/Register', data);
-        console.log(check);
-        if (check.status === 201) {
-            alert('User added successfully');}}
-        catch(e)
-        {
+        catch (e) {
             alert(e.response.data.message)
         }
-        
+
     };
 
     return (
@@ -99,9 +101,9 @@ const AddUser = () => {
                             <div>
                                 <select id="role" name="Role" onChange={handleChange} className='mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'>
                                     <option value="">Select Type</option>
-                                    <option value="Admin">Admin</option>
-                                    <option value="User">User</option>
-                                    <option value="Service Provider">Service Provider</option>
+                                    <option value="admin">Admin</option>
+                                    <option value="user">User</option>
+                                    <option value="service">Service Provider</option>
                                 </select>
                             </div>
                         </div>

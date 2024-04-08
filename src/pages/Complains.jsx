@@ -1,16 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Sidebar from '../components/Sidebar';
 import { BsThreeDots } from 'react-icons/bs';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { useEffect } from 'react';
+
 const Complains = () => {
-    let userType = localStorage.getItem('userData');
-    userType = JSON.parse(userType);
-    userType = userType.data.type;
     const [showOptions, setShowOptions] = useState(false);
     const [complains, setComplains] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
     const navigate = useNavigate();
+    const user = JSON.parse(localStorage.getItem('userData'));
+    const userType = user.data.type.toLowerCase();
+    const userName = `${user.data.name.toLowerCase()}`;
+
     const toggleOptions = () => {
         setShowOptions(!showOptions);
     };
@@ -18,8 +21,8 @@ const Complains = () => {
     const getComplains = async () => {
         try {
             const { data } = await axios.get('http://localhost:5000/api/complains/getComplains');
-            console.log(data.data)
             setComplains(data.data);
+            setLoading(false);
         } catch (error) {
             console.error('Error fetching Complains:', error);
         }
@@ -30,30 +33,17 @@ const Complains = () => {
     }, []);
 
     const handleOptionClick = (option, id) => {
-        // Handle click based on the option
-        if (option === 'edit') {
-            // Handle edit option
-            console.log('Edit clicked');
+        if (option === 'resolve') {
+            navigate(`/portal/complains/resolve/${id}`);
+        }
+        if (option === 'respond') {
+            navigate(`/portal/complains/respond/${id}`);
         } else if (option === 'Assign') {
-            console.log(id)
             navigate(`/portal/complains/assign/${id}`);
-
         } else if (option === 'view') {
-
-            console.log('View clicked');
+            navigate(`/portal/complains/view/${id}`);
         }
     };
-
-    const [searchExpanded, setSearchExpanded] = useState(false);
-    const handleSearchClick = () => {
-        setSearchExpanded(true);
-    };
-    const [searchQuery, setSearchQuery] = useState('');
-
-    const handleSearchBlur = () => {
-        setSearchExpanded(false);
-    };
-
 
     return (
         <div>
@@ -61,21 +51,16 @@ const Complains = () => {
                 <div className='font-bold ml-4 p-4'>
                     <div className='flex justify-between'>
                         <div><h1>Complains</h1></div>
-
-                        <div> <Link to="/portal/allotments/create" className="btn btn-outline btn-success btn-sm text-center justify-center">{`+ Add New Complain`}</Link></div>
+                        {userType === "user" && <div><Link to="/portal/complains/addComplain" className="btn btn-outline btn-success btn-sm text-center justify-center">{`+ Add New Complain`}</Link></div>}
                     </div>
                     <div className="mt-4">
-                        <input
-                            type="text"
-                            placeholder="Search..."
-                            onClick={handleSearchClick}
-                            onBlur={handleSearchBlur}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            className={`border px-4 py-2 rounded-md focus:outline-none transition-all duration-300 ${searchExpanded ? 'w-64 border-black' : 'w-48'}`}
-                        />
                     </div>
                     <div className="overflow-x-auto">
-                        <table className="table">
+                        {loading ? (
+                            <div>Loading...</div>
+                        ) : error ? (
+                            <div>{error}</div>
+                        ) : (<table className="table">
                             <thead>
                                 <tr>
                                     <th></th>
@@ -91,35 +76,35 @@ const Complains = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {complains.map((user, index) => (
-                                    <tr key={index} className='hover'>
-                                        <th>{index + 1}</th>
-                                        <td>{user.ComplaintNo}</td>
-                                        <td>{user.Nature}</td>
-                                        <td>{user.Priority}</td>
-                                        <td>{user.Description}</td>
-                                        <td>{user.complainantName}</td>
-                                        <td> {user.Contact}</td>
-                                        <td>{user.Fcode}</td>
-                                        <td>{user.Date}</td>
-                                        <td>{user.Status}</td>
+                                {complains.map((complain, index) => (
+                                    (userType === "user" && complain.complainantName.toLowerCase() !== userName) ? null :
+                                        <tr key={index}>
+                                            <th>{index + 1}</th>
+                                            <td>{complain.ComplaintNo}</td>
+                                            <td>{complain.Nature}</td>
+                                            <td>{complain.Priority}</td>
+                                            <td>{complain.Description}</td>
+                                            <td>{complain.complainantName}</td>
+                                            <td>{complain.Contact}</td>
+                                            <td>{complain.Fcode}</td>
+                                            <td>{complain.Date}</td>
+                                            <td>{complain.Status}</td>
+                                            <td className='relative'>
+                                                <BsThreeDots size={22} onClick={toggleOptions} />
+                                                {showOptions && (
+                                                    <div className=' bg-white border rounded-md shadow-lg'>
+                                                        {userType === "service provider" && <p onClick={() => handleOptionClick('respond', complain._id)} className='p-1 cursor-pointer'>Respond</p>}
+                                                        {userType.toLowerCase() === 'admin' && <p onClick={() => handleOptionClick('Assign', complain._id)} className='p-1 cursor-pointer'>Assign</p>}
+                                                        {userType === "user" && <p onClick={() => handleOptionClick('resolve', complain._id)} className='p-1 cursor-pointer'>Resolve</p>}
 
-                                        <td className='relative'>
-                                            <BsThreeDots size={22} onClick={toggleOptions} />
-                                            {showOptions && (
-                                                <div className=' bg-white border rounded-md shadow-lg'>
-                                                    <p onClick={() => handleOptionClick('edit')} className='p-1 cursor-pointer'>Edit</p>
-                                                    {
-                                                        userType.toLowerCase() === 'type a' && <p onClick={() => handleOptionClick('Assign', user._id)} className='p-1 cursor-pointer'>Assign</p>
-                                                    }
-                                                    <p onClick={() => handleOptionClick('view', user._id)} className='p-1 cursor-pointer'>View</p>
-                                                </div>
-                                            )}
-                                        </td>
-                                    </tr>
+                                                        <p onClick={() => handleOptionClick('view', complain._id)} className='p-1 cursor-pointer'>View</p>
+                                                    </div>
+                                                )}
+                                            </td>
+                                        </tr>
                                 ))}
                             </tbody>
-                        </table>
+                        </table>)}
                     </div>
                 </div>
             </Sidebar>
