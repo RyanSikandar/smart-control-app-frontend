@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import Sidebar from '../components/Sidebar';
 import { BsThreeDots } from 'react-icons/bs';
 import { Link, useNavigate } from 'react-router-dom';
-
+import { useEffect } from 'react';
 const UserManagement = () => {
     const [showOptions, setShowOptions] = useState(false);
+    const [userData, setUserData] = useState([]);
+
     const navigate = useNavigate();
     const toggleOptions = () => {
         setShowOptions(!showOptions);
@@ -19,7 +21,6 @@ const UserManagement = () => {
             // Handle delete option
             console.log('Delete clicked');
         } else if (option === 'view') {
-            navigate('/portal/facilities/view/1');
             console.log('View clicked');
         }
     };
@@ -33,19 +34,16 @@ const UserManagement = () => {
     const handleSearchBlur = () => {
         setSearchExpanded(false);
     };
-    // Sample facilities data
-    const userData = [
-        { id: 1, name: 'Electrician', contact: 'Spr Jabbar Hussain', email: 'jabbar@gmail.com', role: 'Role' },
-        // Add more user objects as needed
-    ];
-
-    // Filter facilities based on search query
-    const filteredUsers = userData.filter(user =>
-        user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        user.contact.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        user.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        user.role.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+   
+    //get user data from backend
+    useEffect(() => {
+        const fetchUsers = async () => {
+            const response = await fetch('https://smart-control-app-backend.vercel.app/api/users/allUsers');
+            const data = await response.json();
+            setUserData(data.data);
+        };
+        fetchUsers();
+    }, []);
 
 
     return (
@@ -80,13 +78,14 @@ const UserManagement = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {filteredUsers.map(user => (
-                                    <tr key={user.id} className='hover'>
-                                        <th>{user.id}</th>
-                                        <td>{user.name}</td>
-                                        <td>{user.contact}</td>
-                                        <td>{user.email}</td>
-                                        <td>{user.role}</td>
+                           
+                                {userData.map((user,index) => (
+                                    <tr key={index} className='hover'>
+                                        <th>{index+1}</th>
+                                        <td>{user.Fname}</td>
+                                        <td>{user.Lname}</td>
+                                        <td>{user.Email}</td>
+                                        <td>{user.Type}</td>
                                         <td className='relative'>
                                             <BsThreeDots size={22} onClick={toggleOptions} />
                                             {showOptions && (
