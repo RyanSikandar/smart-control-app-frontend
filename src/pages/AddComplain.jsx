@@ -97,7 +97,8 @@ const AddComplain = () => {
                                     </div>
                             ))}
                         </div>
-
+                        {/* 3D Model button */}
+                        <a href="https://reaperpatti.github.io/xeokit-bim-viewer/app/index.html?projectId=JCOColony&tab=storeys"className="btn btn-primary mt-4 mb-4" target="_blank" rel="noopener noreferrer">3D Model</a>
                         {/* Save Complain button */}
                         <button onClick={handleSave} className="btn btn-success mt-4">Save Complain</button>
                     </div>
